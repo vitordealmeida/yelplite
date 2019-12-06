@@ -1,2 +1,2 @@
-include ':app', ':core', ':data'
+include ':app'
 rootProject.name='Yelp lite'

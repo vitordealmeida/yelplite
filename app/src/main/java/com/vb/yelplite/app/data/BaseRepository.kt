@@ -1,4 +1,4 @@
-package com.vb.yelplite.data
+package com.vb.yelplite.app.data
 
 import android.util.Log
 import retrofit2.Response

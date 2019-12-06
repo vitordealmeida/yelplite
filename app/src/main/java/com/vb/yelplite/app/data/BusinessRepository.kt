@@ -1,4 +1,4 @@
-package com.vb.yelplite.data
+package com.vb.yelplite.app.data
 
 class BusinessRepository(private val api : YelpApi) : BaseRepository() {
 

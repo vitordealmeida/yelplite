@@ -1,4 +1,4 @@
-package com.vb.yelplite.data
+package com.vb.yelplite.app.data
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -6,7 +6,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-object Apifactory {
+object YelpApifactory {
 
     private val authInterceptor = Interceptor { chain ->
         val newUrl = chain.request().url()
@@ -33,5 +33,5 @@ object Apifactory {
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
 
-    val YelpApi: YelpApi = retrofit().create(YelpApi::class.java)
+    val yelpApi: YelpApi = retrofit().create(YelpApi::class.java)
 }

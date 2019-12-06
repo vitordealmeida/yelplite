@@ -2,10 +2,13 @@ package com.vb.yelplite.app.ui.main
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.vb.yelplite.app.data.BusinessRepository
+import com.vb.yelplite.app.data.RemoteBusiness
+import com.vb.yelplite.app.data.YelpApifactory
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-class BusinessViewModel : ViewModel(){
+class BusinessViewModel : ViewModel() {
 
     private val parentJob = Job()
 
@@ -14,15 +17,14 @@ class BusinessViewModel : ViewModel(){
 
     private val scope = CoroutineScope(coroutineContext)
 
-    private val repository : BusinessRepository = BusinessRepository(ApiFactory.yelpApi)
+    private val repository: BusinessRepository = BusinessRepository(YelpApifactory.yelpApi)
 
+    val businessesLiveData = MutableLiveData<MutableList<RemoteBusiness>>()
 
-    val popularMoviesLiveData = MutableLiveData<MutableList<RemoteBusiness>>()
-
-    fun fetchBusinesses(){
+    fun fetchBusinesses() {
         scope.launch {
-            val popularMovies = repository.getPopularMovies()
-            popularMoviesLiveData.postValue(popularMovies)
+            val popularMovies = repository.searchBusinesses()
+            businessesLiveData.postValue(popularMovies)
         }
     }
 

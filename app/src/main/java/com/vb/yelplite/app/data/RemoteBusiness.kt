@@ -1,6 +1,5 @@
-package com.vb.yelplite.data
+package com.vb.yelplite.app.data
 
-import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
 
