@@ -1,32 +1,21 @@
 package com.vb.yelplite.app.ui.main
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.vb.yelplite.app.data.BusinessRepository
-import com.vb.yelplite.app.data.RemoteBusiness
-import com.vb.yelplite.app.data.YelpApifactory
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import androidx.lifecycle.liveData
+import com.vb.yelplite.app.domain.Business
+import com.vb.yelplite.app.domain.FindNearbyBusinesses
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-class BusinessViewModel : ViewModel() {
+val viewModelModule = module {
+    viewModel { BusinessViewModel(get()) }
+}
 
-    private val parentJob = Job()
+class BusinessViewModel(findNearbyBusinesses: FindNearbyBusinesses) : ViewModel() {
 
-    private val coroutineContext: CoroutineContext
-        get() = parentJob + Dispatchers.Default
-
-    private val scope = CoroutineScope(coroutineContext)
-
-    private val repository: BusinessRepository = BusinessRepository(YelpApifactory.yelpApi)
-
-    val businessesLiveData = MutableLiveData<MutableList<RemoteBusiness>>()
-
-    fun fetchBusinesses() {
-        scope.launch {
-            val popularMovies = repository.searchBusinesses()
-            businessesLiveData.postValue(popularMovies)
-        }
+    val businesses: LiveData<List<Business>> = liveData {
+        val data = findNearbyBusinesses.run()
+        emit(data)
     }
-
-    fun cancelAllRequests() = coroutineContext.cancel()
 }

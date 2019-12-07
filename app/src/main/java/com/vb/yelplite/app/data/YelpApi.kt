@@ -1,13 +1,15 @@
 package com.vb.yelplite.app.data
 
-import kotlinx.coroutines.Deferred
-import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface YelpApi {
     @GET("businesses/search")
-    fun searchBusinesses(): Deferred<Response<YelpBusinessSearchResponse>>
+    suspend fun searchBusinessesTerm(@Query("latitude") latitude: Double, @Query("longitude") longitude: Double, @Query("term") term: String): YelpBusinessSearchResponse
+
+    @GET("businesses/search")
+    suspend fun searchBusinesses(@Query("latitude") latitude: Double, @Query("longitude") longitude: Double): YelpBusinessSearchResponse
 
     @GET("businesses/{id}")
-    fun getBusinessDetails(): Deferred<Response<YelpBusinessSearchResponse>>
+    suspend fun getBusinessDetails(): YelpBusinessSearchResponse
 }

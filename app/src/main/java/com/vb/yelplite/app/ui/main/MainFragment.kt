@@ -1,12 +1,19 @@
 package com.vb.yelplite.app.ui.main
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.vb.yelplite.app.R
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.dsl.module
+
+val fragmentModule = module {
+    factory { MainFragment() }
+}
 
 class MainFragment : Fragment() {
 
@@ -14,7 +21,7 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: BusinessViewModel
+    lateinit var viewModel: BusinessViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,8 +32,13 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(BusinessViewModel::class.java)
-        // TODO: Use the ViewModel
+
+        viewModel = getViewModel()
+
+        viewModel.businesses.observe(viewLifecycleOwner, Observer {businesses ->
+            Log.d("VB", "Found ${businesses.size} businesses")
+            businesses.forEach { Log.d("VB", "> " + it.name) }
+        })
     }
 
 }

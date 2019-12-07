@@ -1,9 +1,13 @@
 package com.vb.yelplite.app.domain
 
-import io.reactivex.Observable
+import com.vb.yelplite.app.data.BusinessMapper
+import com.vb.yelplite.app.data.BusinessRepository
 
-class FindNearbyBusinesses() {
-    fun run(): Observable<Business> {
-        return Observable.just(Business("teste"))
+class FindNearbyBusinesses(val getCurrentLocation: GetCurrentLocation, val businessRepository: BusinessRepository) {
+    suspend fun run(): List<Business> {
+        val location = getCurrentLocation.run()
+        return businessRepository.searchBusinesses(location.latitude, location.longitude)?.map {
+            BusinessMapper().map(it)
+        } ?: emptyList()
     }
 }

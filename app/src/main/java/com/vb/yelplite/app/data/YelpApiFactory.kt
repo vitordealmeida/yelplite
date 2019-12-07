@@ -1,37 +1,50 @@
 package com.vb.yelplite.app.data
 
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.vb.yelplite.app.AppConstants
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import org.koin.dsl.module
 
-object YelpApifactory {
 
-    private val authInterceptor = Interceptor { chain ->
-        val newUrl = chain.request().url()
-            .newBuilder()
-            .addQueryParameter("api_key", "xxx")//AppConstants.yelpApiKey)
-            .build()
+val networkModule = module {
+    factory { AuthInterceptor() }
+    factory { provideOkHttpClient(get(), get()) }
+    factory { provideYelpApi(get()) }
+    factory { provideLoggingInterceptor() }
+    single { provideRetrofit(get()) }
+}
 
-        val newRequest = chain.request()
-            .newBuilder()
-            .url(newUrl)
-            .build()
-
-        chain.proceed(newRequest)
+fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+    return HttpLoggingInterceptor().apply {
+        setLevel(HttpLoggingInterceptor.Level.BASIC)
     }
+}
 
-    private val yelpClient = OkHttpClient().newBuilder()
-        .addInterceptor(authInterceptor)
-        .build()
-
-    fun retrofit(): Retrofit = Retrofit.Builder()
-        .client(yelpClient)
-        .baseUrl("https://api.yelp.com/v3/")
+fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    return Retrofit.Builder().baseUrl("https://api.yelp.com/v3/")
+        .client(okHttpClient)
         .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
+}
 
-    val yelpApi: YelpApi = retrofit().create(YelpApi::class.java)
+fun provideOkHttpClient(authInterceptor: AuthInterceptor, loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+    return OkHttpClient().newBuilder()
+        .addInterceptor(authInterceptor)
+        .addInterceptor(loggingInterceptor)
+        .build()
+}
+
+fun provideYelpApi(retrofit: Retrofit): YelpApi = retrofit.create(YelpApi::class.java)
+
+class AuthInterceptor : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val newRequest = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer ${AppConstants.yelpApiKey}")
+            .build()
+        return chain.proceed(newRequest)
+    }
 }

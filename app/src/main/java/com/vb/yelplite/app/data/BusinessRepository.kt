@@ -1,14 +1,23 @@
 package com.vb.yelplite.app.data
 
-class BusinessRepository(private val api : YelpApi) : BaseRepository() {
+import android.util.Log
+import com.vb.yelplite.app.domain.Business
+import org.koin.dsl.module
+import java.lang.Exception
 
-    suspend fun searchBusinesses() : MutableList<RemoteBusiness>?{
+val dataModule = module {
+    factory { BusinessRepository(get()) }
+}
 
-        val movieResponse = safeApiCall(
-            call = {api.searchBusinesses().await()},
-            errorMessage = "Error Fetching Popular Movies"
-        )
+class BusinessRepository(private val api : YelpApi) {
 
-        return movieResponse?.businesses?.toMutableList()
+    suspend fun searchBusinesses(latitude: Double, longitude: Double) : List<RemoteBusiness>?{
+        return try {
+            api.searchBusinesses(latitude, longitude).businesses
+
+        } catch (e: Exception) {
+            Log.e("VB", "Error on api call", e)
+            emptyList()
+        }
     }
 }
