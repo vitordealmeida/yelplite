@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.vb.yelplite.app.data.BusinessRepository
 import com.vb.yelplite.app.domain.BusinessDetails
+import java.lang.Exception
 
 class BusinessDetailsViewModel(
     val id: String,
@@ -13,7 +14,11 @@ class BusinessDetailsViewModel(
 ) : ViewModel() {
 
     val businessDetails: LiveData<BusinessDetails> = liveData {
-        val data = businessRepository.getBusinessDetail(id)
-        emit(data)
+        try {
+            val data = businessRepository.getBusinessDetail(id)
+            emit(data)
+        } catch (e: Exception) {
+    // error state
+        }
     }
 }

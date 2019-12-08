@@ -23,12 +23,6 @@ class BusinessRepository(private val api: YelpApi) {
     }
 
     suspend fun getBusinessDetail(id: String): BusinessDetails {
-        return try {
-            api.getBusinessDetails(id)
-
-        } catch (e: Exception) {
-            Log.e("VB", "Error on api call", e)
-            return BusinessDetails(emptyList())
-        }
+        return api.getBusinessDetails(id)
     }
 }
