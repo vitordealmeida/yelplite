@@ -20,8 +20,6 @@ enum class SplashAction {
 
 class SplashViewModel(val context: Context) : ViewModel(), LifecycleObserver {
 
-    val initialMessage = MutableLiveData<Int>()
-
     val splashAction = MutableLiveData<SplashAction>(SplashAction.NOTHING)
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)

@@ -1,6 +1,7 @@
 package com.vb.yelplite.app.data
 
 import com.vb.yelplite.app.AppConstants
+import com.vb.yelplite.app.domain.Business
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -48,3 +49,8 @@ class AuthInterceptor : Interceptor {
         return chain.proceed(newRequest)
     }
 }
+
+data class YelpBusinessSearchResponse(
+    val total: Int,
+    val businesses: List<Business>
+)

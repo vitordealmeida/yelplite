@@ -1,6 +1,8 @@
 package com.vb.yelplite.app.data
 
+import com.vb.yelplite.app.domain.BusinessDetails
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface YelpApi {
@@ -11,5 +13,5 @@ interface YelpApi {
     suspend fun searchBusinesses(@Query("latitude") latitude: Double, @Query("longitude") longitude: Double): YelpBusinessSearchResponse
 
     @GET("businesses/{id}")
-    suspend fun getBusinessDetails(): YelpBusinessSearchResponse
+    suspend fun getBusinessDetails(@Path("id") id: String): BusinessDetails
 }

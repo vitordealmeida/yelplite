@@ -72,6 +72,7 @@ class SplashActivity : AppCompatActivity() {
                         )
                     )
                 }
+                else -> {}
             }
         })
     }
@@ -82,7 +83,6 @@ class SplashActivity : AppCompatActivity() {
     ) {
         when (requestCode) {
             permissionRequestCode -> {
-                // If request is cancelled, the result arrays are empty.
                 if ((grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED })) {
                     viewModel.onPermissionsGranted()
                 } else {
