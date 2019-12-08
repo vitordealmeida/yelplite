@@ -8,11 +8,14 @@ import com.vb.yelplite.app.domain.FindNearbyBusinesses
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val viewModelModule = module {
-    viewModel { BusinessViewModel(get()) }
+enum class MainAction {
+    NOTHING,
+    ERROR_LOCATION_PROVIDER,
+    ERROR_INTERNET,
+    FINISH
 }
 
-class BusinessViewModel(findNearbyBusinesses: FindNearbyBusinesses) : ViewModel() {
+class MainViewModel(findNearbyBusinesses: FindNearbyBusinesses) : ViewModel() {
 
     val businesses: LiveData<List<Business>> = liveData {
         val data = findNearbyBusinesses.run()

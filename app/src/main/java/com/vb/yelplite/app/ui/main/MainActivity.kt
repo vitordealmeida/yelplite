@@ -1,8 +1,8 @@
-package com.vb.yelplite.app
+package com.vb.yelplite.app.ui.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.vb.yelplite.app.ui.main.MainFragment
+import com.vb.yelplite.app.R
 
 class MainActivity : AppCompatActivity() {
 

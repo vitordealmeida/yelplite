@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yelp lite</string>
-    <string name="title_core">Domain</string>
-    <string name="title_data">Data</string>
+    <string name="app_name">Restomatic</string>
+    <string name="permissions_required">We need to access your location to show you the best restaurants around you</string>
+    <string name="permissions_accept">Accept</string>
 </resources>

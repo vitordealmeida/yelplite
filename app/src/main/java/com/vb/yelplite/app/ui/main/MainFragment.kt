@@ -11,17 +11,13 @@ import com.vb.yelplite.app.R
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.dsl.module
 
-val fragmentModule = module {
-    factory { MainFragment() }
-}
-
 class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
-    lateinit var viewModel: BusinessViewModel
+    lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
