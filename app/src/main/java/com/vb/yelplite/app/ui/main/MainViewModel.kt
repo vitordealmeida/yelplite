@@ -6,7 +6,6 @@ import com.vb.yelplite.app.domain.Business
 import com.vb.yelplite.app.domain.FindNearbyBusinesses
 import com.vb.yelplite.app.domain.LocationProviderDisabledException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -22,7 +21,7 @@ class MainViewModel(
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun fetchBusinesses() {
-        GlobalScope.launch {
+        viewModelScope.launch {
             try {
                 withContext(Dispatchers.Main) {
                     businesses.postValue(findNearbyBusinesses.run())

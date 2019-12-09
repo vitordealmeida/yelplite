@@ -2,7 +2,6 @@ package com.vb.yelplite.app.ui.splash
 
 import android.Manifest
 import androidx.lifecycle.*
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -45,7 +44,7 @@ class SplashViewModel(val permissionChecker: (String) -> Boolean) : ViewModel(),
     }
 
     fun onPermissionsDenied() {
-        GlobalScope.launch {
+        viewModelScope.launch {
             delay(200)
             splashAction.postValue(SplashAction.REINFORCE_PERMISSION)
         }
