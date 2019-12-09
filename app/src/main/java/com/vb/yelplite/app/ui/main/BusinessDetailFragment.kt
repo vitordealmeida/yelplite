@@ -19,7 +19,7 @@ import com.vb.yelplite.app.domain.BusinessReview
 import kotlinx.android.synthetic.main.business_detail.*
 import kotlinx.android.synthetic.main.business_photo_item.view.*
 import kotlinx.android.synthetic.main.business_review_item.view.*
-import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.getSharedViewModel
 import org.koin.core.parameter.parametersOf
 
 
@@ -47,7 +47,7 @@ class BusinessDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = getViewModel { parametersOf(arguments?.getString("id")) }
+        viewModel = getSharedViewModel { parametersOf(arguments?.getString("id")) }
 
         viewModel.businessDetails.observe(viewLifecycleOwner) {
             business_detail_address.text = it.location.toString()

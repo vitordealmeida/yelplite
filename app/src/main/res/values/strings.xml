@@ -3,4 +3,7 @@
     <string name="permissions_required">We need to access your location to show you the best restaurants around you</string>
     <string name="permissions_accept">Accept</string>
     <string name="business_details_btn_label">More details</string>
+    <string name="error_internet">Verify your internet connectivity and try again</string>
+    <string name="error_gps">Enable your GPS and try again</string>
+    <string name="error_action_retry">Retry</string>
 </resources>

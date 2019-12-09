@@ -2,9 +2,15 @@ package com.vb.yelplite.app.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.observe
 import com.vb.yelplite.app.R
+import kotlinx.android.synthetic.main.activity_business_detail.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class BusinessDetailActivity : AppCompatActivity() {
+
+    val viewModel: BusinessDetailsViewModel by viewModel { parametersOf(intent.getStringExtra("id")) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,6 +23,14 @@ class BusinessDetailActivity : AppCompatActivity() {
                     BusinessDetailFragment.newInstance(intent.getStringExtra("id"))
                 )
                 .commitNow()
+        }
+
+        viewModel.businessDetails.observe(this) {
+            business_detail_loading_progressbar.hide()
+        }
+
+        viewModel.businessReviews.observe(this) {
+            business_detail_loading_progressbar.hide()
         }
     }
 }

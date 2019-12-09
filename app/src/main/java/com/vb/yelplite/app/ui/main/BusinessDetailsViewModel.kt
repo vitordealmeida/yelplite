@@ -6,7 +6,7 @@ import com.vb.yelplite.app.data.BusinessRepository
 
 class BusinessDetailsViewModel(
     val id: String,
-    val businessRepository: BusinessRepository
+    private val businessRepository: BusinessRepository
 ) : ViewModel() {
 
     val businessDetails = liveData {
