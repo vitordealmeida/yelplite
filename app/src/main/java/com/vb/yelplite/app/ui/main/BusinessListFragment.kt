@@ -75,6 +75,7 @@ class BusinessListFragment : Fragment() {
                 businesses[position].let {
                     requestManager
                         .load(it.image_url)
+                        .placeholder(R.drawable.restaurant_placeholder)
                         .into(image)
                     name.text = it.name
                     price.text = it.price ?: "-"

@@ -1,24 +1,29 @@
 package com.vb.yelplite.app.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.vb.yelplite.app.data.BusinessRepository
-import com.vb.yelplite.app.domain.BusinessDetails
-import java.lang.Exception
 
 class BusinessDetailsViewModel(
     val id: String,
     val businessRepository: BusinessRepository
 ) : ViewModel() {
 
-    val businessDetails: LiveData<BusinessDetails> = liveData {
+    val businessDetails = liveData {
         try {
             val data = businessRepository.getBusinessDetail(id)
             emit(data)
         } catch (e: Exception) {
-    // error state
+            // error state
+        }
+    }
+
+    val businessReviews = liveData {
+        try {
+            val data = businessRepository.getBusinessReviews(id).reviews
+            emit(data)
+        } catch (e: Exception) {
+            // error state
         }
     }
 }

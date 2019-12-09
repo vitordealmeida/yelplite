@@ -3,6 +3,7 @@ package com.vb.yelplite.app.data
 import android.util.Log
 import com.vb.yelplite.app.domain.Business
 import com.vb.yelplite.app.domain.BusinessDetails
+import com.vb.yelplite.app.domain.BusinessReviewResponse
 import org.koin.dsl.module
 import java.lang.Exception
 
@@ -24,5 +25,9 @@ class BusinessRepository(private val api: YelpApi) {
 
     suspend fun getBusinessDetail(id: String): BusinessDetails {
         return api.getBusinessDetails(id)
+    }
+
+    suspend fun getBusinessReviews(id: String): BusinessReviewResponse {
+        return api.getBusinessReviews(id)
     }
 }
