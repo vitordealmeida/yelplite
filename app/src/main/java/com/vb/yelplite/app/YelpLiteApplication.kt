@@ -9,6 +9,9 @@ import com.vb.yelplite.app.data.dataModule
 import com.vb.yelplite.app.data.networkModule
 import com.vb.yelplite.app.domain.domainModule
 import com.vb.yelplite.app.ui.uiModule
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

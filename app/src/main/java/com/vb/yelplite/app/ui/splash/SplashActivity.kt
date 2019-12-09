@@ -8,12 +8,14 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import com.vb.yelplite.app.R
 import com.vb.yelplite.app.ui.main.MainActivity
 import kotlinx.android.synthetic.main.splash_activity.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.core.parameter.parametersOf
 
 class SplashActivity : AppCompatActivity() {
 
@@ -24,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
-        viewModel = getViewModel()
+        viewModel = getViewModel { parametersOf(::checkForPermission) }
         lifecycle.addObserver(viewModel)
 
         viewModel.splashAction.observe(this, Observer { action ->
@@ -72,9 +74,17 @@ class SplashActivity : AppCompatActivity() {
                         )
                     )
                 }
-                else -> {}
+                else -> {
+                }
             }
         })
+    }
+
+    fun checkForPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            permission
+        ) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun onRequestPermissionsResult(

@@ -11,6 +11,6 @@ import org.koin.dsl.module
 val uiModule = module {
     factory { BusinessListFragment() }
     viewModel { MainViewModel(get()) }
-    viewModel { SplashViewModel(get()) }
+    viewModel { (permissionChecker: (String) -> Boolean) -> SplashViewModel(permissionChecker) }
     viewModel { (id: String) -> BusinessDetailsViewModel(id, get()) }
 }

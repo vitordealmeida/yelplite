@@ -1,12 +1,7 @@
 package com.vb.yelplite.app.ui.splash
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
-import android.util.Log
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
-import com.vb.yelplite.app.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -18,7 +13,7 @@ enum class SplashAction {
     FINISH
 }
 
-class SplashViewModel(val context: Context) : ViewModel(), LifecycleObserver {
+class SplashViewModel(val permissionChecker: (String) -> Boolean) : ViewModel(), LifecycleObserver {
 
     val splashAction = MutableLiveData<SplashAction>(SplashAction.NOTHING)
 
@@ -28,7 +23,7 @@ class SplashViewModel(val context: Context) : ViewModel(), LifecycleObserver {
     }
 
     fun verifyPermissions() {
-        GlobalScope.launch {
+        viewModelScope.launch {
             delay(2000)
             if (!hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION) || !hasPermission(
                     Manifest.permission.ACCESS_FINE_LOCATION
@@ -42,10 +37,7 @@ class SplashViewModel(val context: Context) : ViewModel(), LifecycleObserver {
     }
 
     private fun hasPermission(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            context,
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
+        return permissionChecker(permission)
     }
 
     fun onPermissionsGranted() {
