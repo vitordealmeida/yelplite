@@ -23,48 +23,23 @@
             android:layout_marginStart="8dp"
             android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="?attr/colorOnPrimarySurface"
+            android:textSize="14sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
             app:layout_constraintStart_toEndOf="@+id/textView3"
             tools:text="$$" />
 
         <TextView
-            android:id="@+id/business_item_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:autoLink="phone"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="?attr/colorOnPrimarySurface"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView2"
-            tools:text="teste" />
-
-        <TextView
             android:id="@+id/business_item_review_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="4dp"
             android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="?attr/colorOnPrimarySurface"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/business_item_ratingbar"
             app:layout_constraintStart_toEndOf="@+id/business_item_ratingbar"
             app:layout_constraintTop_toTopOf="@+id/business_item_ratingbar"
             tools:text="(1652)" />
-
-        <TextView
-            android:id="@+id/business_item_address"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="@color/secondaryColor"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView4"
-            tools:text="teste" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -74,32 +49,6 @@
             app:layout_constraintGuide_percent=".5" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/open_sans"
-            android:text="Phone:"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="?attr/colorOnPrimarySurface"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/open_sans"
-            android:text="Address:"
-            android:textAppearance="?attr/textAppearanceBody1"
-            android:textColor="?attr/colorOnPrimarySurface"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-        <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +56,7 @@
             android:text="Rate:"
             android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="?attr/colorOnPrimarySurface"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -120,13 +69,13 @@
             android:text="Price:"
             android:textAppearance="?attr/textAppearanceBody1"
             android:textColor="?attr/colorOnPrimarySurface"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <RatingBar
             android:id="@+id/business_item_ratingbar"
-            style="@style/Widget.AppCompat.RatingBar.Small"
+            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

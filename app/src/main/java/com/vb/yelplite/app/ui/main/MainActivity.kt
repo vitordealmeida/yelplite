@@ -45,6 +45,8 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.businesses.observe(this) {
             main_content_loading_progressbar.hide()
+            if (isTablet)
+                viewModel.selectedBusinessId.value = it[0].id
         }
 
         if (!isTablet) {
@@ -56,6 +58,10 @@ class MainActivity : AppCompatActivity() {
                     )
                 }
             }
+        } else {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.business_detail_container, BusinessDetailFragment.newInstance(null))
+                .commitNow()
         }
     }
 

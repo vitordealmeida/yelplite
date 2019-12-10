@@ -47,7 +47,34 @@ class BusinessDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = getSharedViewModel { parametersOf(arguments?.getString("id")) }
+        val businessId = arguments?.getString("id")
+        if (businessId != null) bindToViewModel(businessId)
+
+        business_detail_photos.apply {
+            adapter = BusinessPhotoAdapter(
+                photos,
+                LayoutInflater.from(context),
+                Glide.with(this@BusinessDetailFragment)
+            ) { photo ->
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(photo)))
+            }
+
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+        business_detail_reviews.apply {
+            adapter = BusinessReviewsAdapter(
+                reviews, LayoutInflater.from(context),
+                Glide.with(this@BusinessDetailFragment)
+            ) { profileUrl ->
+                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(profileUrl)))
+            }
+
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    fun bindToViewModel(businessId: String) {
+        viewModel = getSharedViewModel { parametersOf(businessId) }
 
         viewModel.businessDetails.observe(viewLifecycleOwner) {
             business_detail_address.text = it.location.toString()
@@ -85,28 +112,6 @@ class BusinessDetailFragment : Fragment() {
             val existingReviews = reviews.size
             reviews.addAll(it)
             business_detail_photos.adapter?.notifyItemRangeInserted(existingReviews, it.size)
-        }
-
-        business_detail_photos.apply {
-            adapter = BusinessPhotoAdapter(
-                photos,
-                LayoutInflater.from(context),
-                Glide.with(this@BusinessDetailFragment)
-            ) { photo ->
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(photo)))
-            }
-
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        }
-        business_detail_reviews.apply {
-            adapter = BusinessReviewsAdapter(
-                reviews, LayoutInflater.from(context),
-                Glide.with(this@BusinessDetailFragment)
-            ) { profileUrl ->
-                context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(profileUrl)))
-            }
-
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
